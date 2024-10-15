@@ -38,7 +38,7 @@ datarootdir = ${prefix}/share
 bindir = ${exec_prefix}/bin
 libdir = ${exec_prefix}/lib
 infodir = ${datarootdir}/info
-includedir = /usr/include/hiredis
+includedir = ${prefix}/include
 datadir = ${datarootdir}
 localedir = ${datarootdir}/locale
 pkgconfigdir = ${libdir}/pkgconfig
@@ -70,7 +70,7 @@ srcdir = .
 
 CC = gcc
 CC_FOR_BUILD = $(CC)
-YACC = yacc
+YACC = bison -y
 SHELL = /bin/sh
 CP = cp
 RM = rm -f
@@ -144,7 +144,7 @@ LOCAL_DEFS = -DSHELL
 LOCALE_DEFS = -DLOCALEDIR='"$(localedir)"' -DPACKAGE='"$(PACKAGE)"'
 
 LOCAL_LIBS = 
-LIBS = $(BUILTINS_LIB) $(LIBRARIES) -ldl 
+LIBS = $(BUILTINS_LIB) $(LIBRARIES) -ldl -lhiredis
 LIBS_FOR_BUILD = 
 
 STATIC_LD = 
@@ -169,7 +169,7 @@ ASAN_XLDFLAGS = -fsanitize=address
 GCOV_XCFLAGS = -fprofile-arcs -ftest-coverage
 GCOV_XLDFLAGS = -fprofile-arcs -ftest-coverage
 
-INCLUDES = -I.  -I$(srcdir) -I$(BASHINCDIR) -I$(LIBSRC) $(INTL_INC)
+INCLUDES = -I.  -I$(srcdir) -I$(BASHINCDIR) -I/usr/local/include/hiredis/ -I$(LIBSRC) $(INTL_INC)
 
 # Maybe add: -Wextra
 GCC_LINT_FLAGS = -O -Wall -Wshadow -Wpointer-arith -Wcast-qual -Wno-parentheses \
